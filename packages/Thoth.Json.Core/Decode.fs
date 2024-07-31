@@ -37,8 +37,12 @@ module Decode =
                else
                    " ")
             + (helpers.anyToString value)
-        with _ ->
-            "Expecting "
+        with e ->
+            (if isNull e.Message then
+                 ""
+             else
+                 e.Message + " ")
+            + "Expecting "
             + msg
             + " but decoder failed. Couldn't report given value due to circular structure."
             + (if newLine then
